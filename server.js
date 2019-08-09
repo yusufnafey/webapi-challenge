@@ -1,6 +1,8 @@
 const express = require("express");
 const server = express();
 
+server.use(express.json());
+
 let people = [
   {
     id: 1,
@@ -78,7 +80,7 @@ server.get("/people/:id/chores", (req, res) => {
 });
 
 server.post("/chores", (req, res) => {
-  chore = req.body;
+  const chore = req.body;
 
   if (!chore.description) {
     res
@@ -87,6 +89,17 @@ server.post("/chores", (req, res) => {
   } else {
     chores.push(chore);
     res.status(200).json(chore);
+  }
+});
+
+server.delete("/chores/:id", (req, res) => {
+  const id = req.params.id;
+
+  if (!id) {
+    res.status(404).json({ message: "There was an error deleting the chore." });
+  } else {
+    chores.splice(id, 1);
+    res.status(201).json(); // =======
   }
 });
 
