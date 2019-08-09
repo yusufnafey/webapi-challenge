@@ -77,4 +77,17 @@ server.get("/people/:id/chores", (req, res) => {
   }
 });
 
+server.post("/chores", (req, res) => {
+  chore = req.body;
+
+  if (!chore.description) {
+    res
+      .status(400)
+      .json({ message: "Please provie a description for the chore." });
+  } else {
+    chores.push(chore);
+    res.status(200).json(chore);
+  }
+});
+
 module.exports = server;
