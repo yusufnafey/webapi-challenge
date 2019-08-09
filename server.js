@@ -55,4 +55,26 @@ let chores = [
   }
 ];
 
+// server.get("/", (req, res) => {
+//   res.send("testing");
+// });
+
+server.get("/chores", (req, res) => {
+  res.status(200).json(chores);
+});
+
+server.get("/people/:id/chores", (req, res) => {
+  const id = req.params.id;
+
+  if (!id) {
+    res
+      .status(404)
+      .json({ message: "The person with the specified ID does not exist." });
+  } else if (!people.chores) {
+    res.send([]);
+  } else {
+    res.status(200).json(chores.description);
+  }
+});
+
 module.exports = server;
