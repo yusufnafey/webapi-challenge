@@ -57,7 +57,7 @@ let chores = [
   }
 ];
 
-const choreId = 1;
+let choreId = 1;
 
 // function insert(chore) {
 //   return;
@@ -72,21 +72,27 @@ server.get("/", (req, res) => {
 });
 
 server.get("/chores", (req, res) => {
-  const completed = req.query.completed.id;
-  console.log(completed);
-
-  if (completed) {
-    const filter = completed === "true" ? true : false;
-    if (compiled === "true") {
-      filter = true;
-    }
-  } else {
-  }
-
   res.status(200).json(chores);
+
+  // const completed = req.query.completed.id;
+  // console.log(completed);
+
+  // if (completed) {
+  //   const filter = completed === "true" ? true : false;
+  //   if (compiled === "true") {
+  //     filter = true;
+  //   }
+  // } else {
+  // }
 });
 
 server.get("/chores/:id", (req, res) => {
+  const id = req.params.id;
+
+  const chore = chores.find(chore => chore.id === Number(id));
+
+  res.status(201).json(chore);
+
   // const id = req.params.id
 
   // chores.get(id)
@@ -100,12 +106,6 @@ server.get("/chores/:id", (req, res) => {
   // .catch(error => {
   //     res.status(500).json({ error: "The chores information could not be retreived "})
   // })
-
-  const id = req.params.id;
-
-  const chore = chores.find(chore => chore.id === Number(id));
-
-  res.status(201).json(chores);
 
   //   const id = req.params.id;
 
@@ -121,6 +121,14 @@ server.get("/chores/:id", (req, res) => {
 });
 
 server.post("/chores", (req, res) => {
+  let chore = req.body;
+
+  chore.id = choreId++;
+
+  chores.push(chore);
+
+  res.status(201).json(chores);
+
   //   const chore = req.body;
 
   //   if (!chore.description) {
@@ -140,14 +148,6 @@ server.post("/chores", (req, res) => {
   //       });
   //   }
 
-  let chore = req.body;
-
-  chore.id = choreId++;
-
-  chores.push(chore);
-
-  res.status(201).json(chores);
-
   //   if (!chore.description) {
   //     res
   //       .status(400)
@@ -159,6 +159,10 @@ server.post("/chores", (req, res) => {
 });
 
 server.delete("/chores/:id", (req, res) => {
+  const id = req.params.id;
+
+  chores = chores.filter(chore => chore.id !== Number(id));
+
   //   const id = req.params.id;
 
   //   chores
@@ -175,10 +179,6 @@ server.delete("/chores/:id", (req, res) => {
   //     .catch(error => {
   //       res.status(500).json({ message: "The chore could not be removed." });
   //     });
-
-  const id = req.params.id;
-
-  chores = chores.filter(chore => chore.id !== Number(id));
 
   //   const id = req.params.id;
 
