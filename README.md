@@ -40,13 +40,23 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 - [ ] Mention two parts of Express that you learned about this week.
 
+We learned about middlewares, or 'helping hands' for code, as well as routing, which helps break an app into smaller parts.
+
 - [ ] What is Express Middleware?
+
+Middleware is basically functions that that help us add functionality to our endpoints, whether globally or individually.
 
 - [ ] How can a client send data to an API?
 
+Within an endpoint, use "res.send()" and pass whatever data you'd like.
+
 - [ ] What can the API return to help clients know if a request was successful?
 
+If a request was successful, an API should return a status code of 200, or 201 if something was created.
+
 - [ ] What Express feature can we use to partition an application into sub-applications?
+
+Express routing can be used to to break an application into smaller parts.
 
 ## Minimum Viable Product
 
